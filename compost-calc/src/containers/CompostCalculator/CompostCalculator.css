@@ -1,3 +1,8 @@
 .CompostCalculator {
   padding: 56px;
 }
+
+.Wrapper {
+    position: 'relative';
+    width: '100%';
+}

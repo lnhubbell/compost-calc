@@ -12,25 +12,26 @@ import * as actionTypes from '../../store/actions';
 
 class CompostCalculator extends Component {
 
-  componentDidMount = () => {
-      this.props.fetchItems();
-  }
+  // This little line is the most exciting line of code in the entire app:
+  // 1. it waits for the CompostCalculator to Mount onto the DOM,
+  // 2. uses react-redux to connect the fetchItems func to a redux action,
+  // 3. which uses redux-thunk to perform an asynchronous request to firebase,
+  // 4. gets the data then uses a redux reducer to put it into the redux store,
+  // 5. and maps the state of the redux store back to react props
+  componentDidMount = () => this.props.fetchItems();
 
   render() {
       return (
           <div className={classes.CompostCalculator}>
               <TitleBar title="Compost Calculator"/>
-              <div style={{position: 'relative', width: '100%'}}>
-                  <div style={{position: 'absolute', width: '100%'}}>
-                      <Search
-                          options={this.props.searchItems}
-                          changed={this.props.searchHandler}
-                          searchTerm={this.props.searchTerm}
-                          select={this.props.itemSelect}
-                          cancelSelect={this.props.cancelSelect}
-                      />
-                  </div>
-                  <br />
+              <div className={classes.Wrapper}>
+                  <Search
+                      options={this.props.searchItems}
+                      changed={this.props.searchHandler}
+                      searchTerm={this.props.searchTerm}
+                      select={this.props.itemSelect}
+                      cancelSelect={this.props.cancelSelect}
+                  />
                   <br />
                   <Pile
                       pileItems={this.props.pileItems}

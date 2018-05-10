@@ -10,16 +10,15 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 
 
 
-// vv ASYNCHRONOUS EXAMPLES vv
-// TODO: play around with not exporting these
-export const addItemsToState = (data) => {
+// vv ASYNCHRONOUS EXAMPLE vv
+const addItemsToState = (data) => {
     return {
         compostItems: data,
         type: ADD_ITEMS_TO_STATE
     }
 }
 
-export const fetchError = (error) => {
+const fetchError = (error) => {
     return {
         error: error,
         type: FETCH_ERROR
