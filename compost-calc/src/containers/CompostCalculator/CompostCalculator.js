@@ -1,104 +1,19 @@
 import React, {Component} from 'react';
-import classes from './CompostCalculator.css';
+import {connect} from 'react-redux'
 
+import classes from './CompostCalculator.css';
 import Search from '../../components/Search/Search';
 import Advice from '../../components/Calculator/Advice/Advice';
 import Ratio from '../../components/Calculator/Ratio/Ratio';
 import TitleBar from '../../components/TitleBar/TitleBar';
 import Pile from '../../components/Calculator/Pile/Pile';
 
-import axios from 'axios';
+import * as actionTypes from '../../store/actions';
 
 class CompostCalculator extends Component {
-  state = {
-    compostItems: [],
-    searchItems: [],
-    pileItems: [],
-    cnRatio: 0,
-    suggestions: '',
-    initialValue: '',
-    searchTerm: '',
-    error: false,
-    searching: false
-  }
 
   componentDidMount = () => {
-      axios.get('https://compost-calc.firebaseio.com/ingredients.json')
-          .then((response) => {
-              console.log(response);
-              this.setState({compostItems: response.data});
-          }).catch(error => {
-              this.setState({error:true});
-          });
-  }
-
-  searchHandler = (event) => {
-    const term = event.target.value;
-    const newSearchItems = [];
-    for (const compost of this.state.compostItems) {
-      if ((compost.name.toLowerCase().includes(term.toLowerCase()) || term==='') && !this.alreadySelected(compost)) {
-        newSearchItems.push({...compost});
-      };
-    }
-    this.setState({searchTerm: term, searchItems: newSearchItems, searching: true});
-  }
-
-  alreadySelected = (newCompost) => {
-    for (const compost of this.state.pileItems) {
-      if (compost.name === newCompost.name) {
-        return true;
-      };
-    }
-    return false;
-  }
-
-  compostSelect = (newCompost) => {
-    const newPileItems = [];
-    for (const compost of this.state.pileItems) {
-      newPileItems.push({...compost});
-    }
-    newPileItems.push({...newCompost});
-    this.setState({searchTerm: '', pileItems: newPileItems, searchItems: [], searching: false})
-    this.updateRatio(newPileItems);
-  }
-
-  cancelSelect = () => {
-      this.setState({searchTerm: '', searchItems: [], searching: false})
-  }
-
-  updateRatio = (newPileItems) => {
-    let carbonTotal = 0.0;
-    let nitrogenTotal = 0.0;
-    let newRatio = 0;
-    if (newPileItems.length > 0) {
-      for (const compost of newPileItems) {
-        carbonTotal += (compost.carbon*compost.qty);
-        nitrogenTotal += (compost.nitrogen*compost.qty);
-      }
-      newRatio = carbonTotal/nitrogenTotal;
-    }
-    this.setState({cnRatio: newRatio});
-  }
-
-  removeItem = (index) => {
-      const newPileItems = [];
-      for (const compost of this.state.pileItems) {
-          newPileItems.push({...compost});
-      }
-      newPileItems.splice(index, 1);
-      this.setState({pileItems: newPileItems});
-      this.updateRatio(newPileItems);
-  }
-
-
-  quantityHandler = (event, ind) => {
-      const newPileItems = [...this.state.pileItems]
-      const newPileItem = {...newPileItems[ind]}
-      newPileItem.qty = event.target.value;
-      newPileItems[ind] = newPileItem;
-      this.setState({pileItems: newPileItems});
-      this.updateRatio(newPileItems);
-
+      this.props.fetchItems();
   }
 
   render() {
@@ -108,25 +23,53 @@ class CompostCalculator extends Component {
               <div style={{position: 'relative', width: '100%'}}>
                   <div style={{position: 'absolute', width: '100%'}}>
                       <Search
-                          options={this.state.searchItems}
-                          changed={this.searchHandler}
-                          searchTerm={this.state.searchTerm}
-                          select={this.compostSelect}
-                          cancelSelect={this.cancelSelect}
+                          options={this.props.searchItems}
+                          changed={this.props.searchHandler}
+                          searchTerm={this.props.searchTerm}
+                          select={this.props.itemSelect}
+                          cancelSelect={this.props.cancelSelect}
                       />
                   </div>
                   <br />
                   <br />
                   <Pile
-                      pileItems={this.state.pileItems}
-                      remove={this.removeItem}
-                      quantityHandler={this.quantityHandler}
+                      pileItems={this.props.pileItems}
+                      remove={this.props.removeItem}
+                      quantityHandler={this.props.qtyHandler}
                   />
-                  <Ratio cnRatio={this.state.cnRatio}/>
+                  <Ratio cnRatio={this.props.cnRatio}/>
           </div>
       </div>
     )
   }
 }
 
-export default CompostCalculator;
+
+const mapStateToProps = (state) => {
+    return {
+        compostItems: state.compostItems,
+        searchItems: state.searchItems,
+        pileItems: state.pileItems,
+        cnRatio: state.cnRatio,
+        searchTerm: state.searchTerm,
+        error: state.error,
+        searching: state.searching
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        qtyHandler: (event, ind) => dispatch(
+            {type: actionTypes.QTY_HANDLER, event: event, ind: ind}),
+        removeItem: (ind) => dispatch(
+            {type: actionTypes.REMOVE_ITEM, ind: ind}),
+        cancelSelect: () => dispatch({type: actionTypes.CANCEL_SELECT}),
+        itemSelect: (newItem) => dispatch(
+            {type: actionTypes.ITEM_SELECT, newItem: newItem}),
+        searchHandler: (event) => dispatch(
+            {type: actionTypes.SEARCH_HANDLER, event: event}),
+        fetchItems: () => dispatch(actionTypes.fetchItems())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompostCalculator);

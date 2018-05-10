@@ -10,10 +10,6 @@ const navbar = (props) => (
       <div className={classes.Logo}>
           <Logo />
       </div>
-      <nav className={classes.DesktopOnly}>
-          <span>Home</span>
-          <span>About</span>
-      </nav>
   </header>
 );
 
