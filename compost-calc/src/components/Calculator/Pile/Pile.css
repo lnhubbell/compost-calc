@@ -1,3 +1,31 @@
 .Pile {
-  background-color: green;
+  background-color: #89BA9A; /* #75BBA7; */
+  margin-top: 50px;
+  width: auto;
+}
+
+.Pile tr {
+    border:
+}
+
+.Qty {
+    width: 8%;
+}
+.Name {
+    width: 8%;
+}
+.Carbon {
+    width: 8%;
+}
+.Nitrogen {
+    width: 8%;
+}
+.Remove {
+    width: 8%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
 }

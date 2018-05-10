@@ -1,29 +1,35 @@
 import React, {Component} from 'react';
 import classes from './CompostCalculator.css';
 
+import Search from '../../components/Search/Search';
+import Advice from '../../components/Calculator/Advice/Advice';
+import Ratio from '../../components/Calculator/Ratio/Ratio';
 import TitleBar from '../../components/TitleBar/TitleBar';
-import CompostSearch from '../../components/CompostSearch/CompostSearch'
-import Pile from '../../components/Calculator/Pile/Pile'
-import Ratio from '../../components/Calculator/Ratio/Ratio'
-import Advice from '../../components/Calculator/Advice/Advice'
+import Pile from '../../components/Calculator/Pile/Pile';
 
+import axios from 'axios';
 
 class CompostCalculator extends Component {
   state = {
-    compostItems: [
-      {name: 'Leaves', carbon: 2, nitrogen: 5, qty: 1},
-      {name: 'Coffee', carbon: 10, nitrogen: 1, qty: 1},
-      {name: 'Newspaper', carbon: 30, nitrogen: 2, qty: 1},
-      {name: 'Bodies', carbon: 50, nitrogen: 1, qty: 1},
-      {name: 'Fruit', carbon: 1, nitrogen: 10, qty: 1},
-    ],
+    compostItems: [],
     searchItems: [],
     pileItems: [],
     cnRatio: 0,
     suggestions: '',
-    searchNames: ['Leaves', 'Newspaper', 'Bodies', 'Fruit'],
     initialValue: '',
     searchTerm: '',
+    error: false,
+    searching: false
+  }
+
+  componentDidMount = () => {
+      axios.get('https://compost-calc.firebaseio.com/ingredients.json')
+          .then((response) => {
+              console.log(response);
+              this.setState({compostItems: response.data});
+          }).catch(error => {
+              this.setState({error:true});
+          });
   }
 
   searchHandler = (event) => {
@@ -34,7 +40,7 @@ class CompostCalculator extends Component {
         newSearchItems.push({...compost});
       };
     }
-    this.setState({searchTerm: term, searchItems: newSearchItems});
+    this.setState({searchTerm: term, searchItems: newSearchItems, searching: true});
   }
 
   alreadySelected = (newCompost) => {
@@ -52,8 +58,12 @@ class CompostCalculator extends Component {
       newPileItems.push({...compost});
     }
     newPileItems.push({...newCompost});
-    this.setState({searchTerm: '', pileItems: newPileItems, searchItems: []})
+    this.setState({searchTerm: '', pileItems: newPileItems, searchItems: [], searching: false})
     this.updateRatio(newPileItems);
+  }
+
+  cancelSelect = () => {
+      this.setState({searchTerm: '', searchItems: [], searching: false})
   }
 
   updateRatio = (newPileItems) => {
@@ -62,42 +72,59 @@ class CompostCalculator extends Component {
     let newRatio = 0;
     if (newPileItems.length > 0) {
       for (const compost of newPileItems) {
-        carbonTotal += compost.carbon;
-        nitrogenTotal += compost.nitrogen;
+        carbonTotal += (compost.carbon*compost.qty);
+        nitrogenTotal += (compost.nitrogen*compost.qty);
       }
       newRatio = carbonTotal/nitrogenTotal;
-    } 
+    }
     this.setState({cnRatio: newRatio});
   }
 
   removeItem = (index) => {
-    const newPileItems = [];
-    for (const compost of this.state.pileItems) {
-      newPileItems.push({...compost});
-    }
-    newPileItems.splice(index, 1);
-    this.setState({pileItems: newPileItems});
-    this.updateRatio(newPileItems);
+      const newPileItems = [];
+      for (const compost of this.state.pileItems) {
+          newPileItems.push({...compost});
+      }
+      newPileItems.splice(index, 1);
+      this.setState({pileItems: newPileItems});
+      this.updateRatio(newPileItems);
+  }
+
+
+  quantityHandler = (event, ind) => {
+      const newPileItems = [...this.state.pileItems]
+      const newPileItem = {...newPileItems[ind]}
+      newPileItem.qty = event.target.value;
+      newPileItems[ind] = newPileItem;
+      this.setState({pileItems: newPileItems});
+      this.updateRatio(newPileItems);
+
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <TitleBar title="Compost Calculator"/>
-        <CompostSearch
-          options={this.state.searchItems}
-          changed={this.searchHandler}
-          searchTerm={this.state.searchTerm}
-          select={this.compostSelect}
-
-        />
-        <Pile
-          pileItems={this.state.pileItems}
-          remove={this.removeItem}
-        />
-        <Ratio cnRatio={this.state.cnRatio}/>
-        <Advice suggestions={this.state.suggestions}/>
-      </React.Fragment>
+      return (
+          <div className={classes.CompostCalculator}>
+              <TitleBar title="Compost Calculator"/>
+              <div style={{position: 'relative', width: '100%'}}>
+                  <div style={{position: 'absolute', width: '100%'}}>
+                      <Search
+                          options={this.state.searchItems}
+                          changed={this.searchHandler}
+                          searchTerm={this.state.searchTerm}
+                          select={this.compostSelect}
+                          cancelSelect={this.cancelSelect}
+                      />
+                  </div>
+                  <br />
+                  <br />
+                  <Pile
+                      pileItems={this.state.pileItems}
+                      remove={this.removeItem}
+                      quantityHandler={this.quantityHandler}
+                  />
+                  <Ratio cnRatio={this.state.cnRatio}/>
+          </div>
+      </div>
     )
   }
 }

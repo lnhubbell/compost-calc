@@ -1,0 +1,27 @@
+.searchList {
+    width: 40%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    height: 200px;
+    z-index: 100;
+    position: relative;
+}
+
+.searchList li{
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+    z-index: 100;
+}
+
+.searchList li:hover:not(.header) {
+    background-color: #eee;
+    z-index: 100;
+}

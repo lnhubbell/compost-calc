@@ -1,3 +1,11 @@
 .Ratio {
-  
+    margin-top: 15px;
+    font-size: 1.5em;
+    text-align: right;
+    font-weight: bold;
+}
+
+.Ideal {
+    margin-top: 10px;
+    text-align: right;
 }
