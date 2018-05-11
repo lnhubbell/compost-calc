@@ -1,6 +1,6 @@
-# compost-calc
+# Compost Calculator
 
-Welcome to Compost Calculator! This is a quick project to explore React and Redux.
+Welcome to the only Compost Calculator on the web! This is a quick project to explore React and Redux.
 
 ## The App Itself
 
