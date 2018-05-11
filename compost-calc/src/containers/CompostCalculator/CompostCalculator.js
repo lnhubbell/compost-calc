@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 import classes from './CompostCalculator.css';
 import Search from '../../components/Search/Search';
-import Advice from '../../components/Calculator/Advice/Advice';
 import Ratio from '../../components/Calculator/Ratio/Ratio';
 import TitleBar from '../../components/TitleBar/TitleBar';
 import Pile from '../../components/Calculator/Pile/Pile';

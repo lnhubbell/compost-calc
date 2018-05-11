@@ -1,0 +1,34 @@
+.PileItem {
+}
+
+
+.inputCls {
+    background-color: transparent;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid black;
+    width: 50px;
+    font-size: 1.1em;
+}
+
+.editImg {
+    width: 13px;
+    height: 13px;
+    position: relative;
+    left: -14px;
+    top: 2px;
+}
+
+
+.deleteImg {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 0px;
+    top: 2px;
+}
+
+.deleteImg:hover {
+    cursor: pointer;
+}

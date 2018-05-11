@@ -2,6 +2,7 @@
   background-color: #89BA9A; /* #75BBA7; */
   margin-top: 50px;
   width: auto;
+  box-shadow: 0 2px 2px #ccc;
 }
 
 .Pile tr {
@@ -9,7 +10,7 @@
 }
 
 .Qty {
-    width: 8%;
+    width: 6%;
 }
 .Name {
     width: 8%;
@@ -21,7 +22,7 @@
     width: 8%;
 }
 .Remove {
-    width: 8%;
+    width: 4%;
 }
 
 table, th, td {

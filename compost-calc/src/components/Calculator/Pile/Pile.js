@@ -1,26 +1,8 @@
 import React from 'react';
 import classes from './Pile.css';
+import PileItem from './PileItem/PileItem';
 
-const pile = (props) => {
-
-    const rows = props.pileItems.map((item, ind) => {
-        const bgColor = item.carbon/item.nitrogen > 30 ? {backgroundColor: '#A08C7B'} : {};
-
-        return (
-            <tr key={item.name} style={bgColor}>
-                <td><input value={item.qty} onChange={(event) => props.quantityHandler(event, ind)}/></td>
-                <td>{item.name}</td>
-                <td>{item.carbon}</td>
-                <td>{item.nitrogen}</td>
-                <td><button onClick={() => props.remove(ind)}>X</button></td>
-            </tr>
-        )
-    }
-    )
-
-
-
-  return (
+const pile = (props) =>  (
     <div className={classes.Pile}>
         <table>
             <thead>
@@ -33,11 +15,20 @@ const pile = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {rows}
+                {
+                    props.pileItems.map((item, ind) => (
+                        <PileItem
+                            item={item}
+                            ind={ind}
+                            remove={props.remove}
+                            quantityHandler={props.quantityHandler}
+                        />
+                    ))
+                }
             </tbody>
         </table>
     </div>
-      )
-      };
+);
 
-      export default pile;
+
+export default pile;
