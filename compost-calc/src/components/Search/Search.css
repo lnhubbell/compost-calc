@@ -1,0 +1,12 @@
+.Search {
+    text-align: left;
+    position: absolute;
+    width: 90%;
+}
+
+
+@media (min-width: 600px) and (min-height: 400px) {
+  .Search {
+        width: 800px;
+  }
+}

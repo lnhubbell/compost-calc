@@ -18,8 +18,7 @@ const dropdown = (props) => (
                                     key={compost.name}
                                     onClick={() => props.select(compost)}
                                 >
-                                    {compost.name + ': '}
-                                    {compost.carbon}/{compost.nitrogen}
+                                    {compost.name}
                                 </li>
                             ))}
                         </ul>

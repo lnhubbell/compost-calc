@@ -1,8 +1,16 @@
 .CompostCalculator {
-  margin: 56px;
+
+  margin: 16px;
 }
 
 .Wrapper {
     position: 'relative';
     width: '100%';
+}
+
+
+@media (min-width: 600px) and (min-height: 400px) {
+  .CompostCalculator {
+        margin: 56px;
+  }
 }

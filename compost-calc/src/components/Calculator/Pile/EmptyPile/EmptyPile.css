@@ -1,0 +1,9 @@
+.EmptyPile {
+    width: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    margin-top: -1px;
+    font-size: 1.5em;
+    display: flex;
+    padding: 15px;
+}

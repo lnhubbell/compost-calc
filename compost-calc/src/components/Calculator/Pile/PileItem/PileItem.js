@@ -25,8 +25,9 @@ const pileItem = (props) => {
                 </div>
             </td>
             <td>{props.item.name}</td>
-            <td>{props.item.carbon}</td>
-            <td>{props.item.nitrogen}</td>
+            <td className={classes.Carbon}>{props.item.carbon}</td>
+            <td className={classes.Nitrogen}>{props.item.nitrogen}</td>
+            <td className={classes.CarbonNitrogen}>{props.item.carbon}/{props.item.nitrogen}</td>
             <td>
                 <img
                     onClick={() => props.remove(props.ind)}

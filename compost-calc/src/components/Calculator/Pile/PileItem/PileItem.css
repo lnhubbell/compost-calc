@@ -18,6 +18,7 @@
     position: relative;
     left: -14px;
     top: 2px;
+    display: none;
 }
 
 
@@ -31,4 +32,29 @@
 
 .deleteImg:hover {
     cursor: pointer;
+}
+
+.Carbon {
+    display: none;
+}
+
+.Nitrogen {
+    display: none;
+}
+
+@media (min-width: 600px) and (min-height: 400px) {
+    .Carbon {
+        display: table-cell;
+    }
+    .Nitrogen {
+        display: table-cell;
+    }
+
+    .CarbonNitrogen {
+        display: none;
+    }
+
+    .editImg {
+        display: inline;
+    }
 }

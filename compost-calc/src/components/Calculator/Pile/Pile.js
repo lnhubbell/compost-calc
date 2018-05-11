@@ -1,16 +1,18 @@
 import React from 'react';
 import classes from './Pile.css';
 import PileItem from './PileItem/PileItem';
+import EmptyPile from './EmptyPile/EmptyPile';
 
 const pile = (props) =>  (
     <div className={classes.Pile}>
         <table>
             <thead>
                 <tr>
-                    <th className={classes.Qty}>Qty</th>
+                    <th className={classes.Qty}>Qty (by weight)</th>
                     <th className={classes.Name}>Name</th>
                     <th className={classes.Carbon}>Carbon</th>
                     <th className={classes.Nitrogen}>Nitrogen</th>
+                    <th className={classes.CarbonNitrogen}>C/N</th>
                     <th className={classes.Remove}>Remove</th>
                 </tr>
             </thead>
@@ -28,6 +30,7 @@ const pile = (props) =>  (
                 }
             </tbody>
         </table>
+        {props.pileItems.length === 0 ? <EmptyPile /> : null}
     </div>
 );
 

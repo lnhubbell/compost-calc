@@ -1,5 +1,5 @@
 .searchList {
-    width: 40%;
+    width: 100%;
     padding: 0;
     margin: 0;
     overflow-y: scroll;
@@ -21,4 +21,10 @@
 
 .searchList li:hover:not(.header) {
     background-color: #eee;
+}
+
+@media (min-width: 600px) and (min-height: 400px) {
+  .searchList {
+        width: 40%;
+  }
 }
