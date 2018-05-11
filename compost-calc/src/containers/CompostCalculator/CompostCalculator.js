@@ -44,7 +44,8 @@ class CompostCalculator extends Component {
   }
 }
 
-
+// these two mapping functions map the redux store and the redux actions to 
+// react props
 const mapStateToProps = (state) => {
     return {
         compostItems: state.compostItems,

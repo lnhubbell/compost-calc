@@ -15,6 +15,6 @@ const composeWithDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compo
 // the thunk middleware lets us use asynchronous functions in the redux action/reducers
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
-
+// Provider ties our redux store into react
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -1,3 +1,6 @@
+// this file contains all of the 'actions' that redux is aware of. Actions are
+// basically the triggers the react app uses to alter the redux store
+// (the state of the app)
 import axios from 'axios';
 
 export const QTY_HANDLER = 'QTY_HANDLER';
@@ -8,7 +11,9 @@ export const SEARCH_HANDLER = 'SEARCH_HANDLER';
 export const ADD_ITEMS_TO_STATE = 'ADD_ITEMS_TO_STATE';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
-
+// These 'action creators' let us perform asynchronous functions when altering
+// the redux store. Typically, all reducers should be entirely synchronous, so
+// these are the exception to the rule
 const addItemsToState = (data) => {
     return {
         compostItems: data,
@@ -23,6 +28,8 @@ const fetchError = (error) => {
     }
 }
 
+// 'redux-thunk' gives us access to this dispatch function, which is what lets
+// us run the asynchronous database call
 export const fetchItems = () => {
     return (dispatch) => {
         axios.get('https://compost-calc.firebaseio.com/ingredients.json')

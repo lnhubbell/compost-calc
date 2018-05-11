@@ -1,3 +1,7 @@
+// This file contains almost all the business logic for the entire app
+// if this app were any bigger this file would have to broken out into multiple
+// reducers
+
 import * as actionTypes from './actions';
 
 const initialState = {
