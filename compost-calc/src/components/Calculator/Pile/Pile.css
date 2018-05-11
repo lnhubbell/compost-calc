@@ -1,9 +1,12 @@
 .Pile {
-  background-color: #89BA9A;
   margin-top: 50px;
   width: auto;
   box-shadow: 0 2px 2px #ccc;
   text-align: center;
+}
+
+.MyGreen {
+    background-color: #89BA9A;
 }
 
 .Pile tr {
@@ -41,6 +44,9 @@ table, th, td {
     padding: 5px;
 }
 
+.Weight {
+    display: none;
+}
 
 @media (min-width: 600px) and (min-height: 400px) {
     .Carbon {
@@ -52,5 +58,9 @@ table, th, td {
 
     .CarbonNitrogen {
         display: none;
+    }
+
+    .Weight {
+        display: inline;
     }
 }

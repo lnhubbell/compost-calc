@@ -4,11 +4,13 @@ import PileItem from './PileItem/PileItem';
 import EmptyPile from './EmptyPile/EmptyPile';
 
 const pile = (props) =>  (
-    <div className={classes.Pile}>
-        <table>
+    <div className={[classes.Pile, classes.MyGreen].join(' ')}>
+        <table className={classes.MyGreen}>
             <thead>
                 <tr>
-                    <th className={classes.Qty}>Qty (by weight)</th>
+                    <th className={classes.Qty}>Qty
+                        <span className={classes.Weight}>{' ' + '(by weight)'}</span>
+                    </th>
                     <th className={classes.Name}>Name</th>
                     <th className={classes.Carbon}>Carbon</th>
                     <th className={classes.Nitrogen}>Nitrogen</th>

@@ -8,7 +8,7 @@ const pileItem = (props) => {
 
     const bgColor = (
         props.item.carbon/props.item.nitrogen > 30 ?
-        {backgroundColor: '#A08C7B'} : {}
+        {backgroundColor: '#A08C7B'} : {backgroundColor: '#89BA9A'}
     );
     return (
         <tr style={bgColor}>
