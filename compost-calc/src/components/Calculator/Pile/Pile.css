@@ -14,7 +14,7 @@
 }
 
 .Qty {
-    width: 6%;
+    width: 1%;
 }
 
 .Name {
@@ -44,7 +44,7 @@ table, th, td {
     padding: 5px;
 }
 
-.Weight {
+.Hide {
     display: none;
 }
 
@@ -60,7 +60,10 @@ table, th, td {
         display: none;
     }
 
-    .Weight {
+    .Hide {
         display: inline;
+    }
+    .Qty {
+        width: 4%;
     }
 }

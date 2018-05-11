@@ -9,7 +9,7 @@ const pile = (props) =>  (
             <thead>
                 <tr>
                     <th className={classes.Qty}>Qty
-                        <span className={classes.Weight}>{' ' + '(by weight)'}</span>
+                        <span className={classes.Hide}>{' ' + '(by weight)'}</span>
                     </th>
                     <th className={classes.Name}>Name</th>
                     <th className={classes.Carbon}>Carbon</th>
