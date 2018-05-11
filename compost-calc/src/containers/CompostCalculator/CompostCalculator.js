@@ -60,14 +60,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         qtyHandler: (event, ind) => dispatch(
-            {type: actionTypes.QTY_HANDLER, event: event, ind: ind}),
+            {type: actionTypes.QTY_HANDLER, value: event.target.value, ind: ind}),
         removeItem: (ind) => dispatch(
             {type: actionTypes.REMOVE_ITEM, ind: ind}),
         cancelSelect: () => dispatch({type: actionTypes.CANCEL_SELECT}),
         itemSelect: (newItem) => dispatch(
             {type: actionTypes.ITEM_SELECT, newItem: newItem}),
         searchHandler: (event) => dispatch(
-            {type: actionTypes.SEARCH_HANDLER, event: event}),
+            {type: actionTypes.SEARCH_HANDLER, value: event.target.value}),
         fetchItems: () => dispatch(actionTypes.fetchItems())
     };
 };

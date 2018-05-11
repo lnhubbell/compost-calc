@@ -1,6 +1,5 @@
 .searchList {
     width: 40%;
-    list-style-type: none;
     padding: 0;
     margin: 0;
     overflow-y: scroll;
@@ -18,10 +17,8 @@
     font-size: 18px;
     color: black;
     display: block;
-    z-index: 100;
 }
 
 .searchList li:hover:not(.header) {
     background-color: #eee;
-    z-index: 100;
 }

@@ -22,6 +22,7 @@ const pile = (props) =>  (
                             ind={ind}
                             remove={props.remove}
                             quantityHandler={props.quantityHandler}
+                            key={item.name}
                         />
                     ))
                 }

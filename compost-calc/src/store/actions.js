@@ -9,8 +9,6 @@ export const ADD_ITEMS_TO_STATE = 'ADD_ITEMS_TO_STATE';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
 
-
-// vv ASYNCHRONOUS EXAMPLE vv
 const addItemsToState = (data) => {
     return {
         compostItems: data,

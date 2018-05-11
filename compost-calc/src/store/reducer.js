@@ -37,7 +37,7 @@ const reducer = (state=initialState, action) => {
 // vvv reducer funcs vvv
 
 const searchHandler = (state, action) => {
-  const term = action.event.target.value;
+  const term = action.value;
   const newSearchItems = [];
   for (const compost of state.compostItems) {
     // we want items that match the search term and havent already been selected
@@ -60,7 +60,7 @@ const searchHandler = (state, action) => {
 const quantityHandler = (state, action) => {
     const newPileItems = [...state.pileItems]
     const newPileItem = {...newPileItems[action.ind]}
-    newPileItem.qty = action.event.target.value;
+    newPileItem.qty = action.value;
     newPileItems[action.ind] = newPileItem;
     const newRatio = updatedRatio(newPileItems);
     return {

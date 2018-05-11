@@ -1,18 +1,25 @@
 import React from 'react';
+
 import classes from './PileItem.css';
 import edit from '../../../../assets/images/edit.png';
 import deletePng from '../../../../assets/images/delete.png';
+
 const pileItem = (props) => {
 
-    const bgColor = props.item.carbon/props.item.nitrogen > 30 ? {backgroundColor: '#A08C7B'} : {};
+    const bgColor = (
+        props.item.carbon/props.item.nitrogen > 30 ?
+        {backgroundColor: '#A08C7B'} : {}
+    );
     return (
-        <tr key={props.item.name} style={bgColor}>
+        <tr style={bgColor}>
             <td>
                 <div>
                     <input
                         className={classes.inputCls}
                         value={props.item.qty}
-                        onChange={(event) => props.quantityHandler(event, props.ind)}
+                        onChange={
+                            (event) => props.quantityHandler(event, props.ind)
+                        }
                     />
                     <img className={classes.editImg} src={edit} alt="edit" />
                 </div>
