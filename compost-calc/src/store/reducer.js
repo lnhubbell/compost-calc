@@ -79,7 +79,7 @@ const removeItem = (state, action) => {
     for (const compost of state.pileItems) {
         newPileItems.push({...compost});
     }
-    newPileItems.splice(action.index, 1);
+    newPileItems.splice(action.ind, 1);
     const newRatio = updatedRatio(newPileItems);
     return {
         ...state,
